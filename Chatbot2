@@ -1,0 +1,53 @@
+import re
+import random
+
+destination = {
+    "beaches": ["Bali", "Maldives", "Phuket"],
+    "mountains" : ["Swiss Alps", "Rocky Mountains", "Himalays"],
+    "cities" : ["Tokyo", "Paris", "New York"],
+
+}
+
+def normalize_input(text):
+
+     return re.sub(r"\s+", " ", text.strip().lower())
+
+
+prompt = normalize_input("Hello Wasif How Are You")
+
+print(prompt)
+
+def recommend():
+
+    print("TravelBot: Beaches, mountains, or cities?")
+    preference = input("You: ")
+    preference = normalize_input(preference)
+
+
+    if preference in destination:
+
+        suggestion = random.choice(destination[preference])
+        print(f"TravelBot: How about {suggestion}?")
+        print("TravelBot: Do you like it? (yes/no)")
+        answer = input("You: ").lower()
+
+
+        if answer == "yes":
+            print(f"TravelBot: Awesome! Enjoy {suggestion}!")
+        elif answer == "no":
+            print("TravelBot Let's try another destination.")
+
+            recommend() # Rescrusive call on unrecognized answer
+
+        else:
+            print("TravelBot: Sorry, I don't have that type of destination.")
+
+def chat():
+    print("Hello! I'm TravelBot")
+    name = input("Your name? ")
+    print(f"Nice to meet you {name}!")
+    recommend()
+
+
+
+chat()         
